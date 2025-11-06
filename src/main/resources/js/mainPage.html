@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS de Bootstrap -->
+<!-- JavaScript de Bootstrap (jQuery requerido) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script defer src="js/reader.js"></script>
+<script defer src="js/article.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-sm-6">
+                <h2>CRUD articles</h2>
+                <button id="addButton" class="btn btn-success">Add</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <table id="articleTable" class="table table-bordered table-condensed table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Newspaper</th>
+                            <th>AvgRanking</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="col-sm-4 ml-3" id="infoContainer"></div>
+        </div>
+
+
+        </div>
+
+    <!---------------MODAL WINDOWS --------------------->
+
+    <!-- Modal for add article-->
+    <div class="modal" id="addarticleModal" tabindex="-1" aria-labelledby="addarticleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addarticleModalLabel">Add New article</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for adding a new article -->
+                    <form id="addarticleForm">
+                        <div class="mb-3">
+                            <label for="addarticleName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="addarticleName" required>
+                            <div class="mb-3">
+                                <label for="addTypeNames" class="form-label">Type:</label>
+                                <select class="form-select" id="addTypeNames"></select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="addNPaperNames" class="form-label">Newspaper:</label>
+                                <select class="form-select" id="addNPaperNames"></select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add article</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for update article-->
+    <div class="modal" id="updatearticleModal" tabindex="-1" aria-labelledby="updatearticleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updatearticleModalLabel">Update article</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for updating article -->
+                    <form id="updatearticleForm">
+                        <div class="mb-3">
+                            <label for="updatearticleId" class="form-label">article Id</label>
+                            <input type="text" class="form-control" id="updatearticleId" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updatearticleName" class="form-label">article Name</label>
+                            <input type="text" class="form-control" id="updatearticleName" required>
+                            <div class="mb-3">
+                                <label for="updateTypeNames" class="form-label">Type:</label>
+                                <select class="form-select" id="updateTypeNames"></select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateNPaperNames" class="form-label">Newspaper:</label>
+                                <select class="form-select" id="updateNPaperNames"></select>
+                            </div>   </div>
+                        <button type="submit" class="btn btn-primary">Update article</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for add ReadArticle-->
+    <div class="modal" id="addReadArticleModal" tabindex="-1" aria-labelledby="addReadArticleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addReadArticleModalLabel">Add new rating</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for adding a new article -->
+                    <form id="addReadArticleForm">                      
+                        <div class="mb-3">
+                            <label for="addRAArticle" class="form-label">Article:</label>
+                            <input type="text" class="form-control" id="addRAArticle" readonly>
+                        </div>                       
+                        <div class="mb-3">
+                            <label for="addRAReaders" class="form-label">Reader:</label>
+                            <select class="form-select" id="addRAReaders"></select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addRARating" class="form-label">Rating:</label>
+                            <input type="number" min="1" max="5" class="form-control" id="addRARating" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Add rating</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal for update ReadArticle-->
+        <div class="modal" id="updateReadArticleModal" tabindex="-1" aria-labelledby="updateReadArticleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateReadArticleModalLabel">Update MedRecord</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for updating an MedRecord -->
+                    <form id="updateReadArticleForm">
+                        <div class="mb-3">
+                            <label for="updateReaderId" class="form-label">Reader ID</label>
+                            <input type="text" class="form-control" id="updateReaderId" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateArticleId" class="form-label">Article ID</label>
+                            <input type="text" class="form-control" id="updateArticleId" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateReaderName" class="form-label">Reader name</label>
+                            <input type="text" class="form-control" id="updateReaderName" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateRating" class="form-label">Rating</label>
+                            <input type="number" class="form-control" id="updateRating" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Update Rating</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
